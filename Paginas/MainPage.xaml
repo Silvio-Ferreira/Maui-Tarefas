@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:enums="clr-namespace:Tarefas.Enums"
+             xmlns:paginas="clr-namespace:Tarefas.Paginas"
+             x:Class="Tarefas.Paginas.MainPage"
+             Title="Organizador de tarefas">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FrameCardStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="LightGrey"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="HasShadow" Value="True"/>
+                <Setter Property="WidthRequest" Value="200"/>
+            </Style>
+
+            <Style x:Key="LabelFrameCardStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+
+            <Style x:Key="CollectionViewFrameStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="HasShadow" Value="True"/>
+            </Style>
+
+            <Style x:Key="CollectionViewFrameLabelStyle" TargetType="Label">
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="WidthRequest" Value="200"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+                <Setter Property="LineBreakMode" Value="TailTruncation"/>
+            </Style>
+
+            <Style x:Key="StackLayoutButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Purple"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ScrollView Orientation="Horizontal">
+        <HorizontalStackLayout Spacing="10" Padding="10">
+            <VerticalStackLayout>
+                <Frame Style="{StaticResource FrameCardStyle}">
+                    <StackLayout>
+                        <Label Text="Backlog" Style="{StaticResource LabelFrameCardStyle}"/>
+                        <CollectionView x:Name="CardBacklog">
+                            <!-- Template para itens -->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{StaticResource CollectionViewFrameStyle}">
+                                        <StackLayout HorizontalOptions="FillAndExpand">
+                                            <!-- Título do cartão -->
+                                            <Label Text="{Binding Titulo}" Style="{StaticResource CollectionViewFrameLabelStyle}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:MainPage}}, Path=IrParaDetalhesCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Button Text="+ Novo item"
+                                Clicked="NovoClicked"
+                                CommandParameter="{x:Static enums:Status.Backlog}"
+                                Style="{StaticResource StackLayoutButton}"/>
+                    </StackLayout>
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Frame Style="{StaticResource FrameCardStyle}">
+                    <StackLayout>
+                        <Label Text="Análise" Style="{StaticResource LabelFrameCardStyle}"/>
+                        <CollectionView x:Name="CardAnalise">
+                            <!-- Template para itens -->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{StaticResource CollectionViewFrameStyle}">
+                                        <StackLayout HorizontalOptions="FillAndExpand">
+                                            <!-- Título do cartão -->
+                                            <Label Text="{Binding Titulo}" Style="{StaticResource CollectionViewFrameLabelStyle}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:MainPage}}, Path=IrParaDetalhesCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Button Text="+ Novo item"
+                                Clicked="NovoClicked"
+                                CommandParameter="{x:Static enums:Status.Analise}"
+                                Style="{StaticResource StackLayoutButton}"/>
+                    </StackLayout>
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Frame Style="{StaticResource FrameCardStyle}">
+                    <StackLayout>
+                        <Label Text="Para Fazer" Style="{StaticResource LabelFrameCardStyle}"/>
+                        <CollectionView x:Name="CardParaFazer">
+                            <!-- Template para itens -->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{StaticResource CollectionViewFrameStyle}">
+                                        <StackLayout HorizontalOptions="FillAndExpand">
+                                            <!-- Título do cartão -->
+                                            <Label Text="{Binding Titulo}" Style="{StaticResource CollectionViewFrameLabelStyle}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:MainPage}}, Path=IrParaDetalhesCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Button Text="+ Novo item"
+                                Clicked="NovoClicked"
+                                CommandParameter="{x:Static enums:Status.ParaFazer}"
+                                Style="{StaticResource StackLayoutButton}"/>
+                    </StackLayout>
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Frame Style="{StaticResource FrameCardStyle}">
+                    <StackLayout>
+                        <Label Text="Desenvolvimento" Style="{StaticResource LabelFrameCardStyle}"/>
+                        <CollectionView x:Name="CardDesenvolvimento">
+                            <!-- Template para itens -->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{StaticResource CollectionViewFrameStyle}">
+                                        <StackLayout HorizontalOptions="FillAndExpand">
+                                            <!-- Título do cartão -->
+                                            <Label Text="{Binding Titulo}" Style="{StaticResource CollectionViewFrameLabelStyle}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:MainPage}}, Path=IrParaDetalhesCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Button Text="+ Novo item"
+                                Clicked="NovoClicked"
+                                CommandParameter="{x:Static enums:Status.Desenvolvimento}"
+                                Style="{StaticResource StackLayoutButton}"/>
+                    </StackLayout>
+                </Frame>
+            </VerticalStackLayout>
+
+
+            <VerticalStackLayout>
+                <Frame Style="{StaticResource FrameCardStyle}">
+                    <StackLayout>
+                        <Label Text="Feito" Style="{StaticResource LabelFrameCardStyle}"/>
+                        <CollectionView x:Name="CardFeito">
+                            <!-- Template para itens -->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{StaticResource CollectionViewFrameStyle}">
+                                        <StackLayout HorizontalOptions="FillAndExpand">
+                                            <!-- Título do cartão -->
+                                            <Label Text="{Binding Titulo}" Style="{StaticResource CollectionViewFrameLabelStyle}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type paginas:MainPage}}, Path=IrParaDetalhesCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Button Text="+ Novo item"
+                                Clicked="NovoClicked"
+                                CommandParameter="{x:Static enums:Status.Feito}"
+                                Style="{StaticResource StackLayoutButton}"/>
+                    </StackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+    </ScrollView>
+
+</ContentPage>
